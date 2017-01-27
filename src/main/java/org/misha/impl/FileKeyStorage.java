@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.apache.commons.io.IOUtils.closeQuietly;
+import static org.misha.Rsa.ALGORITHM;
 
 /**
  * author: misha
@@ -66,9 +67,10 @@ class FileKeyStorage extends KeyStorage {
         }
     }
 
-    public void makeKeys() throws NoSuchAlgorithmException {
+    @Override
+    protected void makeKeys() throws NoSuchAlgorithmException {
         try {
-            final KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
             keyGen.initialize(1024);
             writeKeys(keyGen.generateKeyPair());
         } catch (IOException e) {
@@ -91,7 +93,8 @@ class FileKeyStorage extends KeyStorage {
         write(name.equals(privateKeyPath) ? keys.getPrivate() : keys.getPublic(), file);
     }
 
-    public boolean keyMissed() {
+    @Override
+    protected boolean keyMissed() {
         return !new File(privateKeyPath).exists() || !new File(publicKeyPath).exists();
     }
 }

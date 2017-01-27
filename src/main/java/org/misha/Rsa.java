@@ -7,6 +7,8 @@ package org.misha;
  */
 public interface Rsa {
 
+    String ALGORITHM = "RSA";
+
     String encrypt(String text);
 
     String decrypt(String text);

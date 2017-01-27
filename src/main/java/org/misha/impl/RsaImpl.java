@@ -7,7 +7,6 @@ import org.misha.Rsa;
 import javax.crypto.Cipher;
 
 class RsaImpl implements Rsa {
-    private static final String ALGORITHM = "RSA";
     private static final String CHARSET = "UTF-8";
     private final KeyStorage keyStorage;
     private final Base64 base64 = new Base64();
@@ -16,6 +15,7 @@ class RsaImpl implements Rsa {
         this.keyStorage = keyStorage;
     }
 
+    @Override
     public String encrypt(final String text) {
         try {
             final Cipher cipher = Cipher.getInstance(ALGORITHM);
@@ -27,12 +27,13 @@ class RsaImpl implements Rsa {
         }
     }
 
+    @Override
     public String decrypt(final String text) {
         String decryptedText = null;
         try {
             final Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, keyStorage.getPrivate());
-            decryptedText = new String(cipher.doFinal(base64.decode(text)), "UTF-8");
+            decryptedText = new String(cipher.doFinal(base64.decode(text)), CHARSET);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
