@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+## deployed on <a href="http://lie-fe.mishashevelin.cloudbees.net/">lie-fe</a>
+## tar.gz project excluding classes and .svn
 project_folder='rsa'
 
 cd ../../

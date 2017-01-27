@@ -1,21 +1,21 @@
 package org.misha;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Observer;
 
 /**
  * author: misha
  * date: 1/15/17
  * time: 2:51 PM
  */
-public abstract class KeyStorage {
+public interface KeyStorage extends Observer {
 
-    public abstract PublicKey getPublic();
+    PublicKey getPublic() throws Exception;
 
-    public abstract PrivateKey getPrivate();
+    PrivateKey getPrivate();
 
-    protected abstract boolean keyMissed();
+    boolean keyMissed();
 
-    protected abstract void makeKeys() throws NoSuchAlgorithmException;
+    Long getKeyId() throws Exception;
 }

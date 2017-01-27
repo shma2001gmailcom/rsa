@@ -6,10 +6,9 @@ package org.misha;
  * time: 3:23 PM
  */
 public interface Rsa {
-
     String ALGORITHM = "RSA";
 
-    String encrypt(String text);
+    byte[] encrypt(String text) throws Exception;
 
-    String decrypt(String text);
+    String decrypt(final byte[] text) throws Exception;
 }

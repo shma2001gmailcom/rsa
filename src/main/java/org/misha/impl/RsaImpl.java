@@ -1,45 +1,31 @@
 package org.misha.impl;
 
-import org.apache.commons.codec.binary.Base64;
 import org.misha.KeyStorage;
 import org.misha.Rsa;
 
 import javax.crypto.Cipher;
 
-class RsaImpl implements Rsa {
-    private static final String CHARSET = "UTF-8";
+/**
+ * author: misha
+ * date: 16.01.2017.
+ */
+public final class RsaImpl implements Rsa {
     private final KeyStorage keyStorage;
-    private final Base64 base64 = new Base64();
 
-    RsaImpl(final KeyStorage keyStorage) {
+    public RsaImpl(final KeyStorage keyStorage) {
         this.keyStorage = keyStorage;
     }
 
-    @Override
-    public String encrypt(final String text) {
-        try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.ENCRYPT_MODE, keyStorage.getPublic());
-            return new String(base64.encode(cipher.doFinal(text.getBytes(CHARSET))));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public byte[] encrypt(final String text) throws Exception {
+        final Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.PUBLIC_KEY, keyStorage.getPublic());
+        return cipher.doFinal(text.getBytes());
+
     }
 
-    @Override
-    public String decrypt(final String text) {
-        String decryptedText = null;
-        try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, keyStorage.getPrivate());
-            decryptedText = new String(cipher.doFinal(base64.decode(text)), CHARSET);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (decryptedText == null) {
-            throw new IllegalStateException("decrypted should be non-null");
-        }
-        return decryptedText;
+    public String decrypt(final byte[] encrypted) throws Exception {
+        final Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.PRIVATE_KEY, keyStorage.getPrivate());
+        return new String(cipher.doFinal(encrypted));
     }
 }
