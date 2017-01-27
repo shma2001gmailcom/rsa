@@ -6,13 +6,13 @@ import org.misha.Rsa;
 
 import javax.crypto.Cipher;
 
-public class RsaImpl implements Rsa {
+class RsaImpl implements Rsa {
     private static final String ALGORITHM = "RSA";
     private static final String CHARSET = "UTF-8";
     private final KeyStorage keyStorage;
     private final Base64 base64 = new Base64();
 
-    public RsaImpl(final KeyStorage keyStorage) {
+    RsaImpl(final KeyStorage keyStorage) {
         this.keyStorage = keyStorage;
     }
 

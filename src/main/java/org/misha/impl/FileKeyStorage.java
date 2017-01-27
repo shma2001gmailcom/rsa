@@ -14,14 +14,12 @@ import static org.apache.commons.io.IOUtils.closeQuietly;
  * date: 1/15/17
  * time: 2:53 PM
  */
-public class FileKeyStorage extends KeyStorage {
-    final KeyPairGenerator keyGen;
+class FileKeyStorage extends KeyStorage {
     private final String privateKeyPath;
     private final String publicKeyPath;
     private final Map<String, File> keyFiles;
 
-    public FileKeyStorage(final String privateKeyPath, final String publicKeyPath) throws NoSuchAlgorithmException {
-        keyGen = KeyPairGenerator.getInstance("RSA");
+    FileKeyStorage(final String privateKeyPath, final String publicKeyPath) throws NoSuchAlgorithmException {
         this.privateKeyPath = privateKeyPath;
         this.publicKeyPath = publicKeyPath;
         keyFiles = new HashMap<String, File>() {{
@@ -85,9 +83,9 @@ public class FileKeyStorage extends KeyStorage {
 
     private void writeKeyFile(final String name, final KeyPair keys) throws IOException {
         final File file = keyFiles.get(name);
-        final File parentFile = file.getParentFile();
-        if (parentFile != null) {
-            parentFile.mkdirs();
+        final File parent = file.getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
         }
         file.createNewFile();
         write(name.equals(privateKeyPath) ? keys.getPrivate() : keys.getPublic(), file);
