@@ -12,8 +12,8 @@ import static org.junit.Assert.fail;
  * date: 16.01.2017.
  */
 public class RsaImplTest {
-    private static final String PRIVATE_KEY_PATH = "./src/test/resources/keys/private_key.der";
-    private static final String PUBLIC_KEY_PATH = "./src/test/resources/keys/public_key.der";
+    private static final String PRIVATE_KEY_PATH = "./resources/keys/private_key.der";
+    private static final String PUBLIC_KEY_PATH = "./resources/keys/public_key.der";
     private static final String TOP_SECRET_TEXT = "Top secret text.";
     private String decrypted;
 
