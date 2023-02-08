@@ -42,15 +42,11 @@ final class MockKeyStorage implements KeyStorage {
     }
 
     public RSAPrivateKey getPrivate() {
-        FileInputStream in = null;
-        try {
-            in = new FileInputStream(privateKeyPath);
+        try (FileInputStream in = new FileInputStream(privateKeyPath)) {
             return (RSAPrivateKey) KeyFactory.getInstance(ALGORITHM)
-                                             .generatePrivate(new PKCS8EncodedKeySpec(toByteArray(in)));
+                    .generatePrivate(new PKCS8EncodedKeySpec(toByteArray(in)));
         } catch (Exception e) {
-            return null;
-        } finally {
-            closeQuietly(in);
+            throw new RuntimeException(e);
         }
     }
 
