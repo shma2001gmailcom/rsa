@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # create rsa key-pair in /erib/Business/test-it-resources/keys
 # after creation a new pair SbTelecomPhonesTest will fail!
-parent='../src/test/resources'
-#!/bin/bash
-
 set -euo pipefail
+parent='../src/test/resources'
 
 # Function to display error messages
 error() {
