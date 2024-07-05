@@ -2,7 +2,6 @@
 # create rsa key-pair in /erib/Business/test-it-resources/keys
 # after creation a new pair SbTelecomPhonesTest will fail!
 set -euo pipefail
-parent='../src/test/resources'
 
 # Function to display error messages
 error() {
@@ -14,8 +13,6 @@ error() {
 command -v openssl >/dev/null 2>&1 || error "OpenSSL is not installed. Please install it and try again."
 
 # Variables
-PARENT=${1:-"${parent}"} # Allow parent directory to be specified as an argument
-KEYS_DIR='keys'
 KEY_SIZE=${2:-8192} # Allow key size to be specified as an argument, default to 8192
 
 cd "${PARENT}" || error "Failed to change directory to ${PARENT}"
